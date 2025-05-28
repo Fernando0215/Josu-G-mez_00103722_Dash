@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "Parcial 2 Dash Josue Gomez 00103722"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "950c9466-52f3-42ca-b127-8151711bb2db"
+  }
+}

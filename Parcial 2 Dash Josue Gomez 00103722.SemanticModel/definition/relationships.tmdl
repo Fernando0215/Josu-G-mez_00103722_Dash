@@ -1,0 +1,38 @@
+relationship 887b441b-91e9-4034-bcc7-c5df978ee1d4
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Dim_Calendario.Fecha
+	toColumn: LocalDateTable_dad6863a-dee4-4783-96a5-9b7cf5a50af0.Date
+
+relationship 8ac0b334-83ce-4de5-84b6-7009a7af3070
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Dim_Vendedor.fecha_nacimiento
+	toColumn: LocalDateTable_6a9dc44f-c6c9-4b39-8d8b-fd8f4fe33a47.Date
+
+relationship AutoDetected_b30a7ef2-33fd-480f-a409-af10455bd3dc
+	fromColumn: Fact_Ventas.datekey
+	toColumn: Dim_Calendario.datekey
+
+relationship AutoDetected_63c44fad-bdbd-4c5f-8ef7-7595786feec8
+	fromColumn: fact_Presupuestos.id_sede
+	toColumn: dim_sede.id_sede
+
+relationship AutoDetected_25ed97da-1f17-4a15-b64d-dcc104d02d76
+	fromColumn: Fact_Ventas.Canal
+	toColumn: dim_canal.id_canal
+
+relationship AutoDetected_9e566858-79fb-4745-8f7b-3efd82584b4b
+	fromColumn: Fact_Ventas.Cliente
+	toColumn: Dim_Cliente.id_Cliente
+
+relationship AutoDetected_c7a52fd1-8414-4e1b-a1ce-98c3f86b8fba
+	fromColumn: Fact_Ventas.Sede
+	toColumn: dim_sede.id_sede
+
+relationship AutoDetected_da661b25-f7f4-40a5-9afb-e5e80ed5a19f
+	fromColumn: Fact_Ventas.Vehiculo
+	toColumn: dim_vehiculo.id_vehiculo
+
+relationship AutoDetected_b0520548-277e-41e9-8215-21c231fe612c
+	fromColumn: Fact_Ventas.Vendedor
+	toColumn: Dim_Vendedor.ID_Vendedor
+

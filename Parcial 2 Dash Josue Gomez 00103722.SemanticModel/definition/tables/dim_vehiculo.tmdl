@@ -1,0 +1,76 @@
+table dim_vehiculo
+	lineageTag: 92831247-c636-4d67-ade1-dfd075d6315d
+
+	measure 'Margen por Versión' =
+			
+			CALCULATE(
+			    [Margen Bruto],
+			    KEEPFILTERS(VALUES(Fotos_Vehiculos[version]))
+			)
+		lineageTag: 64e2c12a-26a4-41dc-a25f-df0d48ae2472
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Satisfacción Clientes' =
+			
+			CALCULATE(
+			    AVERAGE(Fact_Ventas[Cliente]),
+			    KEEPFILTERS(VALUES(Fotos_Vehiculos[version])))
+		lineageTag: 08e2334f-6bbf-4321-92f8-2d6e828ca03e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column id_vehiculo
+		dataType: int64
+		formatString: 0
+		lineageTag: 5e8f1498-77b7-4560-9198-031d47a80742
+		summarizeBy: none
+		sourceColumn: id_vehiculo
+
+		annotation SummarizationSetBy = Automatic
+
+	column marca_vehiculo
+		dataType: string
+		lineageTag: 598c3337-5461-4cdb-85a7-59bc845b8a12
+		summarizeBy: none
+		sourceColumn: marca_vehiculo
+
+		annotation SummarizationSetBy = Automatic
+
+	column modelo_vehiculo
+		dataType: string
+		lineageTag: 898db67f-f742-4065-a83c-fd661e4168b0
+		summarizeBy: none
+		sourceColumn: modelo_vehiculo
+
+		annotation SummarizationSetBy = Automatic
+
+	column tipo_vehiculo
+		dataType: string
+		lineageTag: f88b9643-df85-4ec5-a8e4-62bf8e260dff
+		summarizeBy: none
+		sourceColumn: tipo_vehiculo
+
+		annotation SummarizationSetBy = Automatic
+
+	column año_vehiculo
+		dataType: int64
+		formatString: 0
+		lineageTag: 7aba3853-ba9c-4eff-a4e0-0e8b163acda9
+		summarizeBy: none
+		sourceColumn: año_vehiculo
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_vehiculo = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\fer20\Downloads\VentasVehiculos.xlsx"), null, true),
+				    dim_vehiculo_Table = Source{[Item="dim_vehiculo",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(dim_vehiculo_Table,{{"id_vehiculo", Int64.Type}, {"marca_vehiculo", type text}, {"modelo_vehiculo", type text}, {"tipo_vehiculo", type text}, {"año_vehiculo", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

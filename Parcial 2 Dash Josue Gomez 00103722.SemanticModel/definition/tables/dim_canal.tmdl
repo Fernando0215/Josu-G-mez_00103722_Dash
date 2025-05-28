@@ -1,0 +1,45 @@
+table dim_canal
+	lineageTag: 1a6a4267-fa5d-4ba4-b334-d1b45e4913c4
+
+	measure 'Ventas por Canal' = CALCULATE([Ventas Netas],KEEPFILTERS(VALUES(dim_canal[tipo_canal])))
+		lineageTag: 4aad6db9-5a0a-4dbe-9435-7ea59ad9cee1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column id_canal
+		dataType: int64
+		formatString: 0
+		lineageTag: a9198fd7-f02e-4d30-b2f3-eb9add6969a0
+		summarizeBy: none
+		sourceColumn: id_canal
+
+		annotation SummarizationSetBy = Automatic
+
+	column tipo_canal
+		dataType: string
+		lineageTag: cd586c2e-38ad-4dac-b784-0db62c59b0f7
+		summarizeBy: none
+		sourceColumn: tipo_canal
+
+		annotation SummarizationSetBy = Automatic
+
+	column canal
+		dataType: string
+		lineageTag: d8b5500d-8b2e-481c-a07e-631c2dac2cbf
+		summarizeBy: none
+		sourceColumn: canal
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_canal = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\fer20\Downloads\VentasVehiculos.xlsx"), null, true),
+				    dim_canal_Table = Source{[Item="dim_canal",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(dim_canal_Table,{{"id_canal", Int64.Type}, {"tipo_canal", type text}, {"canal", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
